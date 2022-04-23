@@ -1,0 +1,42 @@
+<div class="mask d-flex align-items-center h-100 gradient-custom-3">
+  <div class="container h-100" style="margin-top: 5%; margin-bottom: 5%;">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+        <div class="card" style="border-radius: 15px;">
+          <div class="card-body p-5">
+            <h2 class="text-uppercase text-center mb-5">Log In</h2>
+            <form  [formGroup]="loginForm">
+              <div class="form-outline form-group mb-4">
+                <input type="email" id="form3Example1cg" formControlName="email" class="form-control form-control-lg" placeholder="Email"/>
+                <div class="text-danger"
+                  *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched">
+                        <span>Email is <strong>required</strong></span>
+                </div>
+                <div class="text-danger"
+                  *ngIf="loginForm.get('email')?.hasError('pattern')">
+                    <span>Enter valid <strong>email</strong></span>
+                </div>
+              </div>
+              <div class="form-outline form-group mb-4">
+                <input type="password" id="form3Example1cg" formControlName="password" class="form-control form-control-lg" placeholder="Password" />
+                <div class="text-danger"
+                *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+                        <span>Password is <strong>required</strong></span>
+                </div>
+                <div class="text-danger"
+                  *ngIf="loginForm.get('password')?.hasError('minlength')">
+                    <span>Enter valid <strong>password</strong></span>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <button (click)="signIn()" [disabled]="loginForm.invalid" type="submit" class="btn btn-info btn-block btn-lg gradient-custom-4 text-body">SignIn</button>
+              </div>
+              <p class="text-center text-muted mt-5 mb-0">Forgot <a routerLink="/signup" class="fw-bold text-body"><u>Username</u></a> or <a routerLink="/signup" class="fw-bold text-body"><u>password</u></a> ?</p>
+              <p class="text-center text-muted mt-5 mb-0">New to SitPost <a routerLink="/signup" class="fw-bold text-body"><u>SIGN UP</u></a></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
