@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from 'src/app/services/users.service';
+import { UsersService } from 'src/app/services/users/users.service';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Users } from 'src/app/models/users';
@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  email: string | null
+  username: string | null
 
 
   constructor(
@@ -24,10 +24,10 @@ export class LoginComponent implements OnInit {
     public aRouter: ActivatedRoute
   ) { 
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email, Validators.pattern('[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}')]],
+      username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(9)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
-    this.email = this.aRouter.snapshot.paramMap.get('email');
+    this.username = this.aRouter.snapshot.paramMap.get('username');
   }
 
   ngOnInit(): void {
@@ -41,17 +41,19 @@ export class LoginComponent implements OnInit {
       password: this.loginForm.get('password')?.value
     }
     
-    if(user.email !== null && user.password !== null) {
-      this.usersService.getLoginInfo(user.email).subscribe((data) => {
-        console.log(data);
+    if(user.username !== null && user.password !== null) {
+      this.usersService.getLoginInfo(user.username).subscribe((data) => {
         if(data != null) {
-          this.usersService.signIn(user).subscribe();
-          this.toastr.success('Succesfully registered', 'User created');
-          this.router.navigate([
-            ''
-          ]);
+          this.usersService.signIn(user).subscribe((data) => {
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', user.username || '');
+            this.toastr.success('Succesfully logged', 'User logged');
+            this.router.navigate([
+              ''
+            ]);
+          });
         } else {
-          this.toastr.warning('Incorrect password or email', 'Try again');
+          this.toastr.warning('Incorrect username or password', 'Try again');
         }
       })
     }

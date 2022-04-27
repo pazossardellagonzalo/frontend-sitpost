@@ -7,18 +7,22 @@
             <h2 class="text-uppercase text-center mb-5">Log In</h2>
             <form  [formGroup]="loginForm">
               <div class="form-outline form-group mb-4">
-                <input type="email" id="form3Example1cg" formControlName="email" class="form-control form-control-lg" placeholder="Email"/>
+                <input type="text" formControlName="username" class="form-control form-control-lg" placeholder="Username"/>
                 <div class="text-danger"
-                  *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched">
-                        <span>Email is <strong>required</strong></span>
+                  *ngIf="loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched">
+                        <span>Username is <strong>required</strong></span>
                 </div>
                 <div class="text-danger"
-                  *ngIf="loginForm.get('email')?.hasError('pattern')">
-                    <span>Enter valid <strong>email</strong></span>
+                  *ngIf="loginForm.get('username')?.hasError('minlength')">
+                    <span>Enter valid <strong>username</strong></span>
+                </div>
+                <div class="text-danger"
+                  *ngIf="loginForm.get('username')?.hasError('maxlength')">
+                    <span>Enter valid <strong>username</strong></span>
                 </div>
               </div>
               <div class="form-outline form-group mb-4">
-                <input type="password" id="form3Example1cg" formControlName="password" class="form-control form-control-lg" placeholder="Password" />
+                <input type="password" formControlName="password" class="form-control form-control-lg" placeholder="Password" />
                 <div class="text-danger"
                 *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
                         <span>Password is <strong>required</strong></span>
