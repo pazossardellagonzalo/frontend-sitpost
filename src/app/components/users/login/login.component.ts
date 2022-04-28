@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  username: string | null
+  username: string | null;
 
 
   constructor(
@@ -39,23 +39,28 @@ export class LoginComponent implements OnInit {
       username: this.loginForm.get('username')?.value,
       email: this.loginForm.get('email')?.value,
       password: this.loginForm.get('password')?.value
-    }
+    };
     
-    if(user.username !== null && user.password !== null) {
-      this.usersService.getLoginInfo(user.username).subscribe((data) => {
-        if(data != null) {
+    try {
+
+      this.usersService.getLoginInfo(user.username!, user.password!).subscribe(
+        data => {
           this.usersService.signIn(user).subscribe((data) => {
             localStorage.setItem('token', data.token);
-            localStorage.setItem('user', user.username || '');
+            localStorage.setItem('user', user.username!);
             this.toastr.success('Succesfully logged', 'User logged');
             this.router.navigate([
               ''
             ]);
           });
-        } else {
-          this.toastr.warning('Incorrect username or password', 'Try again');
+        },
+        error => {
+          this.toastr.warning('Wrong username or password', 'Try again');
         }
-      })
+      );
+
+    } catch (error) {
+      this.toastr.error('Something went wrong', 'Try again later');
     }
 
   }

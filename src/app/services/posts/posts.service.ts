@@ -23,4 +23,14 @@ export class PostsService {
     return this.http.post(url, doc);
   }
 
+  userPosts(user: string): Observable<any> {
+    const url = `${this.url_api}/userPosts/${user}`;
+    return this.http.get(url);
+  }
+
+  deletePost(_id: string): Observable<any> {
+    const url = `${this.url_api}/deletePost/${_id}`;
+    return this.http.delete(url);
+  }
+
 }

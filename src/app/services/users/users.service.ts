@@ -29,8 +29,8 @@ export class UsersService {
     return this.http.post(url, doc);
   }
 
-  getLoginInfo(username: string): Observable<any> {
-    const url = `${this.url_api}/getLogin/${username}`;
+  getLoginInfo(username: string, password: string): Observable<any> {
+    const url = `${this.url_api}/getLogin/${username}/${password}`;
     return this.http.get(url);
   }
 
@@ -57,6 +57,11 @@ export class UsersService {
     }
     this.isAuthenticated = true;
     return true;
+  }
+
+  deleteUser(user: string, username: string): Observable<any> {
+    const url = `${this.url_api}/deleteUser/${user}/${username}`;
+    return this.http.delete(url);
   }
 
 }

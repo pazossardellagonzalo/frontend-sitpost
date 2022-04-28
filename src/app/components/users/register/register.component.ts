@@ -52,11 +52,11 @@ export class RegisterComponent implements OnInit {
           ]);
         },
         error => {
-          this.toastr.error('Username or email already exists', 'Try again');
+          this.toastr.warning('Username or email already exists', 'Try again');
         }
       );
     } catch (error) {
-        this.toastr.warning('Error ocurred', 'Try again later');
+        this.toastr.error('Error ocurred', 'Try again later');
     }
 
   }

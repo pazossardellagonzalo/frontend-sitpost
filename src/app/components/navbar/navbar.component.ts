@@ -37,6 +37,7 @@ export class NavbarComponent implements OnInit {
     this.router.navigate([
       ''
     ]);
+    window.location.reload();
   }
 
 }

@@ -41,10 +41,8 @@ export class CreatePostComponent implements OnInit {
     };
 
     try {
-      console.log(post);
       this.postService.Post(post).subscribe(
         data => {
-        console.log(data);
         this.toastr.success('Succesfully created', 'Post created');
         this.router.navigate([
           ''
@@ -55,7 +53,7 @@ export class CreatePostComponent implements OnInit {
       }
       );
     } catch (error) {
-      this.toastr.warning('Error ocurred', 'Try again later');
+        this.toastr.warning('Error ocurred', 'Try again later');
     }
 
   }
