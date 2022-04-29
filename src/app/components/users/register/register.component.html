@@ -14,11 +14,15 @@
                 </div>
                 <div class="text-danger"
                   *ngIf="registerForm.get('username')?.hasError('minlength')">
-                    <span>Username must contain <strong>6 characters</strong></span>
+                    <span>Username must contain <strong>5 characters</strong></span>
                 </div>
                 <div class="text-danger"
                   *ngIf="registerForm.get('username')?.hasError('maxlength')">
-                    <span>Username cant have more than <strong>9 characters</strong></span>
+                    <span>Username cant have more than <strong>12 characters</strong></span>
+                </div>
+                <div class="text-danger"
+                  *ngIf="registerForm.get('username')?.hasError('pattern')">
+                    <span>Enter valid <strong>username</strong></span>
                 </div>
               </div>
               <div class="form-outline form-group mb-4">
@@ -40,7 +44,15 @@
                 </div>
                 <div class="text-danger"
                   *ngIf="registerForm.get('password')?.hasError('minlength')">
-                    <span>Password must contain <strong>6 characters</strong></span>
+                    <span>Password must contain <strong>5 characters</strong></span>
+                </div>
+                <div class="text-danger"
+                  *ngIf="registerForm.get('password')?.hasError('maxlength')">
+                    <span>Passowrd cant have more than <strong>20 characters</strong></span>
+                </div>
+                <div class="text-danger"
+                  *ngIf="registerForm.get('password')?.hasError('pattern')">
+                    <span>Enter valid <strong>password</strong></span>
                 </div>
               </div>
               <div class="d-flex justify-content-center">

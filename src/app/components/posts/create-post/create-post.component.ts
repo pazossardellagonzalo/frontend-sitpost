@@ -14,6 +14,7 @@ import { PostsService } from 'src/app/services/posts/posts.service';
 export class CreatePostComponent implements OnInit {
   postForm: FormGroup;
   title: string | null;
+  likes: number = 0;
 
   constructor(
     public postService: PostsService,
@@ -37,7 +38,7 @@ export class CreatePostComponent implements OnInit {
     const post: Posts = {
       user: localStorage.getItem('user'),
       title: this.postForm.get('title')?.value,
-      body: this.postForm.get('body')?.value
+      body: this.postForm.get('body')?.value,
     };
 
     try {

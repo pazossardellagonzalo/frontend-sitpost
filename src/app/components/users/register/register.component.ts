@@ -23,9 +23,9 @@ export class RegisterComponent implements OnInit {
     public aRouter: ActivatedRoute
     ) {
       this.registerForm = this.fb.group({
-        username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(9)]],
+        username: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(12), Validators.pattern('[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]')]],
         email: ['', [Validators.required, Validators.email, Validators.pattern('[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}')]],
-        password: ['', [Validators.required, Validators.minLength(6)]]
+        password: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20), Validators.pattern('[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]')]]
       });
       this.username = this.aRouter.snapshot.paramMap.get('username');
     }
