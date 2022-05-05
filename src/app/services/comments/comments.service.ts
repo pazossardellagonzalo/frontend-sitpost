@@ -23,5 +23,9 @@ export class CommentsService {
     return this.http.get(url);
   }
 
+  deleteComment(_id: string): Observable<any> {
+    const url = `${this.url_api}/deleteComment/${_id}`;
+    return this.http.delete(url);
+  }
   
 }

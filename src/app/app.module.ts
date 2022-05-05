@@ -8,16 +8,18 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button'
 import { MatTableModule } from '@angular/material/table';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AppRoutingModule } from './app-routing.module';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './components/users/register/register.component';
 import { LoginComponent } from './components/users/login/login.component';
 import { MainComponent } from './components/main/main.component';
 import { ProfileComponent } from './components/users/profile/profile.component';
-import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CreatePostComponent } from './components/posts/create-post/create-post.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { CreatePostComponent } from './components/posts/create-post/create-post.
     MainComponent,
     ProfileComponent,
     NavbarComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,9 @@ import { CreatePostComponent } from './components/posts/create-post/create-post.
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    MatTableModule  ],
+    MatTableModule,
+    Ng2SearchPipeModule
+  ],
   providers: [
     {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
     JwtHelperService

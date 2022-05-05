@@ -59,8 +59,8 @@ export class UsersService {
     return true;
   }
 
-  deleteUser(user: string, username: string): Observable<any> {
-    const url = `${this.url_api}/deleteUser/${user}/${username}`;
+  deleteUser(user: string): Observable<any> {
+    const url = `${this.url_api}/deleteUser/${user}`;
     return this.http.delete(url);
   }
 

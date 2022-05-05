@@ -15,11 +15,11 @@
       <button class="btn btn-success" routerLink="signup">SignUp</button>
     </li>
     <li *ngIf="isLogged() == true" class="nav-item me-3">
+      <button class="btn btn-secondary" routerLink="profile">{{ this.user }}</button>
+    </li>
+    <li *ngIf="isLogged() == true" class="nav-item me-3">
       <button class="btn btn-primary" routerLink="post">Post</button>
     </li> 
-    <li *ngIf="isLogged() == true" class="nav-item me-3">
-        <button class="btn btn-secondary" routerLink="profile">{{ this.user }}</button>
-    </li>
     <li *ngIf="isLogged() == true" class="nav-item me-3">
         <button class="btn btn-danger" (click)="logOut()">LogOut</button>
     </li>   

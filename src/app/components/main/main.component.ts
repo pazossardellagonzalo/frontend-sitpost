@@ -26,7 +26,7 @@ export class MainComponent implements OnInit {
   showComment: boolean = false;
   element: Array<any> = [];
   test2: any = null;
-  
+  searchText = '';
 
   constructor(
     private postsService: PostsService,
@@ -49,28 +49,52 @@ export class MainComponent implements OnInit {
   }
 
   showPosts() {
-    
+
     this.postsService.allPosts().subscribe((data) => {
       this.posts = data;
       const user = localStorage.getItem('user');
+
       for (let index = 0; index < this.posts.length; index++) {
-        const element = this.posts[index].user;
-        if(element === user) {
-          this.test = element;
+        if(this.posts[index].user === user) {
+          this.test = this.posts[index].user;
+        }
+      }
+    })
+
+  }
+
+  showComments(value: any) {
+
+    this.showComment = true;
+    this.commentsService.showComments(this.value).subscribe((data) => {
+      this.element = data;
+      const user = localStorage.getItem('user');
+
+      for (let index = 0; index < this.element.length; index++) {
+        if(this.element[index].user === user) {
+          this.test2 = this.element[index].user;
         }
       }
     });
-
   }
 
   deletePost(id: string) {
     this.postsService.deletePost(id).subscribe((data) => {
       if(data != null){
-        this.toastr.success('Succesfully logged out', 'Disconnected');
+        this.toastr.success('Succesfully deleted', 'Post deleted');
         window.location.reload();
       }
     });
 
+  }
+
+  deleteComment(id: string){
+    this.commentsService.deleteComment(id).subscribe((data) => {
+      if(data != null){
+        this.toastr.success('Succesfully deleted', 'Comment deleted');
+        window.location.reload();
+      }
+    });
   }
 
   open(value: any) {
@@ -102,19 +126,6 @@ export class MainComponent implements OnInit {
     } catch (error) {
         this.toastr.error('Error ocurred', 'Try again later');
     }
-  }
-
-  showComments(value: any) {
-    this.showComment = true;
-    this.commentsService.showComments(this.value).subscribe((data) => {
-      this.element = data;
-      for (let index = 0; index < this.element.length; index++) {
-        const element = this.element[index]._id;
-        if(element === this.value) {
-          this.test2 = element;
-        }
-      }
-    });
   }
 
   closeComments() {

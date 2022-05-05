@@ -1,21 +1,26 @@
-<div class="container d-flex" style="margin-top: 2%; margin-bottom: 2%; justify-content: center;" *ngFor="let post of posts; let i = index">
-  <div class="card col-12" style="max-width: 1000px;">
+<div class="container" style="justify-content: center; max-width: 20%; margin-top: 2%;">
+  <input type="text" class="form-control form-control-lg" name="filterPost" [(ngModel)]="searchText" placeholder="Search on SitPost..." />
+</div>
 
+<!-- Posts and Comments -->
+<div class="container d-flex" style="margin-top: 2%; margin-bottom: 2%; justify-content: center;" *ngFor="let post of this.posts | filter:searchText">
+
+  <div class="card col-12" style="max-width: 1000px;">
     <!-- Post -->
     <div class="card-header" style="max-height: 50px;">
-      <h2>@{{ posts[i].user }}
-        <button class="btn btn-danger btn-sm" style="float: right;" *ngIf="this.test === posts[i].user" (click)="deletePost(posts[i]._id)">Delete</button>
+      <h2>@{{ post.user }}
+        <button class="btn btn-danger btn-sm" style="float: right;" *ngIf="this.test === post.user" (click)="deletePost(post._id)">Delete</button>
       </h2>
     </div>
     <div class="card-body">
-      <h1>{{ posts[i].title }}</h1>
-      <h4>{{ posts[i].body }}</h4>      
+      <h1>{{ post.title }}</h1>
+      <h4>{{ post.body }}</h4>      
     </div>
-    <button class="btn btn-primary btn-sm" style="float: left; max-width: 60px; margin-left: 1%; margin-bottom: 2%;" (click)="open(this.value = posts[i]._id)" *ngIf="this.reply == false">Reply</button>
-    <button class="btn btn-warning btn-sm" style="float: left; max-width: 90px; margin-left: 1%; margin-bottom: 2%;" (click)="showComments(this.value = posts[i]._id)">Comments</button>
+    <button class="btn btn-primary btn-sm" style="float: left; max-width: 60px; margin-left: 1%; margin-bottom: 2%;" (click)="open(this.value = post._id)" *ngIf="this.reply == false">Reply</button>
+    <button class="btn btn-warning btn-sm" style="float: left; max-width: 90px; margin-left: 1%; margin-bottom: 2%;" (click)="showComments(this.value = post._id)">Comments</button>
     
     <!-- Add comment -->
-    <div class="card-header" *ngIf="this.replyOpen == true && this.value == posts[i]._id">
+    <div class="card-header" *ngIf="this.replyOpen == true && this.value == post._id">
       <form [formGroup]="commentForm">
         <textarea class="container form-control form-control-lg d-flex" style="max-height: 150px; max-width: 800px; justify-content: center; margin-bottom: 1%; margin-top: 1%;" formControlName="body" placeholder="Add comment..."></textarea>
           <div class="text-danger"
@@ -36,10 +41,12 @@
     </div>
 
     <!-- Show Comments -->
-    <div class="card-header" style="max-height: 200px; margin-bottom: 2%;" *ngIf="this.showComment === true && this.value === posts[i]._id">
-      <div class="card-content" *ngFor="let ele of element; let i = index">
-        <h2>@{{ element[i].user }}</h2>
-        <h4>{{ element[i].body }}</h4>
+    <div class="card-header" style="max-height: 200px; margin-bottom: 2%;" *ngIf="this.showComment === true && this.value === post._id">
+      <div class="card-content" *ngFor="let ele of element">
+        <h2>@{{ ele.user }}
+          <button class="btn btn-danger btn-sm" style="float: right;" *ngIf="this.test2 === ele.user" (click)="deleteComment(ele._id)">Delete</button>
+        </h2>
+        <h4>{{ ele.body }}</h4>
       </div>
       <button class="btn btn-danger btn-sm" style="float: right; max-width: 65px" (click)="closeComments()">Close</button>
     </div>

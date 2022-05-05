@@ -51,9 +51,8 @@ export class ProfileComponent implements OnInit {
     try {
 
       const user = localStorage.getItem('user');
-      const username = localStorage.getItem('user');
       if(confirm('Are you sure that you want to delete your user, all data will be lost')) {
-        this.userService.deleteUser(user!, username!).subscribe((data) => {
+        this.userService.deleteUser(user!).subscribe((data) => {
           console.log(data);
           if(data != null) {
             this.toastr.success('Correctly deleted user', 'User deleted');
