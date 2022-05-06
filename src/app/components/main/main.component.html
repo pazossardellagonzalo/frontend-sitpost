@@ -8,7 +8,7 @@
   <div class="card col-12" style="max-width: 1000px;">
     <!-- Post -->
     <div class="card-header" style="max-height: 50px;">
-      <h2>@{{ post.user }}
+      <h2 (click)="userProfile(post.user)">@{{ post.user }}
         <button class="btn btn-danger btn-sm" style="float: right;" *ngIf="this.test === post.user" (click)="deletePost(post._id)">Delete</button>
       </h2>
     </div>
@@ -43,7 +43,7 @@
     <!-- Show Comments -->
     <div class="card-header" style="max-height: 200px; margin-bottom: 2%;" *ngIf="this.showComment === true && this.value === post._id">
       <div class="card-content" *ngFor="let ele of element">
-        <h2>@{{ ele.user }}
+        <h2 (click)="userProfile(ele.user)">@{{ ele.user }}
           <button class="btn btn-danger btn-sm" style="float: right;" *ngIf="this.test2 === ele.user" (click)="deleteComment(ele._id)">Delete</button>
         </h2>
         <h4>{{ ele.body }}</h4>

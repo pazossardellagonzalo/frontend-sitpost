@@ -42,7 +42,6 @@ export class UsersService {
 
   profile(username: string): Observable<any> {
     const token = localStorage.getItem('token')
-    console.log(token)
     let headers = new HttpHeaders()
     .set('auth-token', token || '')
     const url = `${this.url_api}/profile/${username}`;
@@ -62,6 +61,11 @@ export class UsersService {
   deleteUser(user: string): Observable<any> {
     const url = `${this.url_api}/deleteUser/${user}`;
     return this.http.delete(url);
+  }
+
+  usersProfiles(username: string): Observable<any> {
+    const url = `${this.url_api}/usersProfile/${username}`;
+    return this.http.get(url);
   }
 
 }

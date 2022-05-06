@@ -1,24 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { CommentsService } from 'src/app/services/comments/comments.service';
 import { PostsService } from 'src/app/services/posts/posts.service';
 import { UsersService } from 'src/app/services/users/users.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CommentsService } from 'src/app/services/comments/comments.service';
 import { Comments } from 'src/app/models/comments';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  selector: 'app-users-profile',
+  templateUrl: './users-profile.component.html',
+  styleUrls: ['./users-profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class UsersProfileComponent implements OnInit {
 
-  username: string = '';
-  user: string = '';
-  email: string = '';
+  userProfile: any = null;
   posts: Array<any> = [];
-  test: any = null;
   showComment: boolean = false;
   value: any = null;
   test2: any = null
@@ -27,7 +24,6 @@ export class ProfileComponent implements OnInit {
   commentForm: FormGroup;
   replyOpen: boolean = false;
   reply: boolean = false;
-  userProfile: any = null;
 
   constructor(
     private userService: UsersService,
@@ -35,85 +31,29 @@ export class ProfileComponent implements OnInit {
     private postService: PostsService,
     private router: Router,
     private aRouter: ActivatedRoute,
-    private fb: FormBuilder,
-    private commentsService: CommentsService
-    ) { 
-      this.commentForm = this.fb.group({
-        user: [''],
-        body: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(250)]],
-        postID: ['']
-      });
-      this.body = this.aRouter.snapshot.paramMap.get('body');
-    }
+    private commentsService: CommentsService,
+    private fb: FormBuilder
+  ) {
+    this.commentForm = this.fb.group({
+      user: [''],
+      body: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(250)]],
+      postID: ['']
+    });
+    this.body = this.aRouter.snapshot.paramMap.get('body');
+  }
 
   ngOnInit(): void {
     this.showProfile();
   }
 
   showProfile() {
-
-    if(this.userService.isAuth()){
-      const username = localStorage.getItem('user');
-      this.userService.profile(username!).subscribe((data) => {
-        this.user = data.username;
-        this.email = data.email;
-        this.postService.userPosts(this.user).subscribe((data) => {
-          this.posts = data;
-        })
+    const username = localStorage.getItem('userProfile');
+    this.userService.usersProfiles(username!).subscribe((data) => {
+      this.userProfile = data;
+      this.postService.userPosts(username!).subscribe((data2) => {
+        this.posts = data2;
       })
-    } else {
-      this.toastr.warning('Error occured', 'Contact with an Administrator');
-    }
-
-  }
-
-  deleteUser() {
-
-    try {
-
-      const user = localStorage.getItem('user');
-      if(confirm('Are you sure that you want to delete your user, all data will be lost')) {
-        this.userService.deleteUser(user!).subscribe((data) => {
-          console.log(data);
-          if(data != null) {
-            this.toastr.success('Correctly deleted user', 'User deleted');
-            this.router.navigate([ '' ]);
-            localStorage.clear();
-          } else {
-            this.toastr.warning('Error', 'Try again later');
-          }  
-        });
-      }
-
-    } catch (error) {
-      this.toastr.error('Something went wrong', 'Try again later');
-    }
-    
-  }
-
-  showPosts() {
-
-    this.postService.allPosts().subscribe((data) => {
-      this.posts = data;
-      const user = localStorage.getItem('user');
-
-      for (let index = 0; index < this.posts.length; index++) {
-        if(this.posts[index].user === user) {
-          this.test = this.posts[index].user;
-        }
-      }
     })
-
-  }
-
-  deletePost(id: string) {
-    this.postService.deletePost(id).subscribe((data) => {
-      if(data != null){
-        this.toastr.success('Succesfully logged out', 'Disconnected');
-        window.location.reload();
-      }
-    });
-
   }
 
   showComments(value: any) {

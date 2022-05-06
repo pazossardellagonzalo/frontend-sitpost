@@ -20,6 +20,7 @@ import { ProfileComponent } from './components/users/profile/profile.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CreatePostComponent } from './components/posts/create-post/create-post.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { UsersProfileComponent } from './components/users/users-profile/users-profile.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { FilterPipe } from './pipes/filter.pipe';
     ProfileComponent,
     NavbarComponent,
     CreatePostComponent,
-    FilterPipe
+    FilterPipe,
+    UsersProfileComponent
   ],
   imports: [
     BrowserModule,

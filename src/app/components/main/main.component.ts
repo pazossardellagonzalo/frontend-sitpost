@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Comments } from 'src/app/models/comments';
 import { Posts } from 'src/app/models/posts';
@@ -130,6 +130,20 @@ export class MainComponent implements OnInit {
 
   closeComments() {
     this.showComment = false;
+  }
+
+  userProfile(username: string) {
+    localStorage.setItem('userProfile', username);
+    const user = localStorage.getItem('user');
+    if(username === user) {
+      this.router.navigate([
+        'profile'
+      ]);
+    } else {
+      this.router.navigate([
+        `profile/${username}`
+      ]);
+    }
   }
 
 }

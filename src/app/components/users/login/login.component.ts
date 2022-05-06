@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
     public aRouter: ActivatedRoute
   ) { 
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(9)]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      username: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(9)]],
+      password: ['', [Validators.required, Validators.minLength(5)]]
     });
     this.username = this.aRouter.snapshot.paramMap.get('username');
   }
