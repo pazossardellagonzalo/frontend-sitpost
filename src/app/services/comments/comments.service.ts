@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class CommentsService {
 
-  url_api = 'http://54.247.45.24:3000';
+  url_api = 'http://api.sitpost.org:3000';
 
   constructor(
     private http: HttpClient
