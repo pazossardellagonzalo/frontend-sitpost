@@ -8,7 +8,7 @@ import { Posts } from 'src/app/models/posts';
 })
 export class PostsService {
 
-  url_api = 'http://localhost:3000';
+  url_api = 'http://54.247.45.24:3000';
 
   constructor(
     private http: HttpClient
