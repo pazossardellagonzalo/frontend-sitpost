@@ -33,11 +33,12 @@ export class MainComponent implements OnInit {
     user: '',
     title: '',
     body: '',
-    likeCount: 0
+    likes: 0
   };
-  likes: Array<any> = [];
   likesLength: any = null;
-  likesC = localStorage.getItem('likesCoun');
+  actualUser = localStorage.getItem('user');
+  likess: any = null;
+  idk: boolean = false;
 
   constructor(
     private postsService: PostsService,
@@ -70,6 +71,7 @@ export class MainComponent implements OnInit {
           this.test = this.posts[index].user;
         }
       }
+
     })
 
   }
@@ -172,12 +174,8 @@ export class MainComponent implements OnInit {
   like(id: string) {
     const username = localStorage.getItem('user');
     this.postsService.likePost(username!, id, this.postBody).subscribe((data) => {
-      this.likes = data.likes;
-      console.log(this.likes);
-      this.likesLength = this.likes.length
-      localStorage.setItem('likesCoun', this.likesLength);
       window.location.reload();
-    })
+    });
   }
 
 }
