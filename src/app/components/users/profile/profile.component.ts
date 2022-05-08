@@ -28,6 +28,7 @@ export class ProfileComponent implements OnInit {
   replyOpen: boolean = false;
   reply: boolean = false;
   userProfile: any = null;
+  commentsShow: boolean = false;
 
   constructor(
     private userService: UsersService,
@@ -132,6 +133,7 @@ export class ProfileComponent implements OnInit {
   }
 
   addComment(value: any) {
+    this.commentsShow = false;
     const comments: Comments = {
       user: localStorage.getItem('user'),
       body: this.commentForm.get('body')?.value,
@@ -164,15 +166,26 @@ export class ProfileComponent implements OnInit {
   open(value: any) {
     this.replyOpen = true;
     this.reply = true;
+    this.commentsShow = true;
   }
 
   close() {
     this.replyOpen = false;
     this.reply = false;
+    this.commentsShow = false;
   }
 
   closeComments() {
     this.showComment = false;
+  }
+
+  isLogged() {
+    if(localStorage.getItem('token') != null){
+      this.test = localStorage.getItem('user');
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }

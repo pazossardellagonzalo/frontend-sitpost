@@ -24,6 +24,9 @@ export class UsersProfileComponent implements OnInit {
   commentForm: FormGroup;
   replyOpen: boolean = false;
   reply: boolean = false;
+  commentsShow: boolean = false;
+  test: any = null;
+  user: any = null;
 
   constructor(
     private userService: UsersService,
@@ -48,6 +51,7 @@ export class UsersProfileComponent implements OnInit {
 
   showProfile() {
     const username = localStorage.getItem('userProfile');
+    this.user = username;
     this.userService.usersProfiles(username!).subscribe((data) => {
       this.userProfile = data;
       this.postService.userPosts(username!).subscribe((data2) => {
@@ -104,15 +108,26 @@ export class UsersProfileComponent implements OnInit {
   open(value: any) {
     this.replyOpen = true;
     this.reply = true;
+    this.commentsShow = true;
   }
 
   close() {
     this.replyOpen = false;
     this.reply = false;
+    this.commentsShow = false;
   }
 
   closeComments() {
     this.showComment = false;
+  }
+
+  isLogged() {
+    if(localStorage.getItem('token') != null){
+      this.test = localStorage.getItem('user');
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }

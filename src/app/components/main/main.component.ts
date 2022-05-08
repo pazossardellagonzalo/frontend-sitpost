@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { faThList } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { Comments } from 'src/app/models/comments';
 import { Posts } from 'src/app/models/posts';
@@ -27,6 +28,16 @@ export class MainComponent implements OnInit {
   element: Array<any> = [];
   test2: any = null;
   searchText = '';
+  commentsShow: boolean = false;
+  postBody: Posts = {
+    user: '',
+    title: '',
+    body: '',
+    likeCount: 0
+  };
+  likes: Array<any> = [];
+  likesLength: any = null;
+  likesC = localStorage.getItem('likesCoun');
 
   constructor(
     private postsService: PostsService,
@@ -100,14 +111,17 @@ export class MainComponent implements OnInit {
   open(value: any) {
     this.replyOpen = true;
     this.reply = true;
+    this.commentsShow = true;
   }
 
   close() {
     this.replyOpen = false;
     this.reply = false;
+    this.commentsShow = false;
   }
 
   addComment(value: any) {
+    this.commentsShow = false;
     const comments: Comments = {
       user: localStorage.getItem('user'),
       body: this.commentForm.get('body')?.value,
@@ -118,7 +132,7 @@ export class MainComponent implements OnInit {
       this.commentsService.Comment(comments).subscribe(
         data => {
           this.toastr.success('Succesfully commented', 'Comment created');   
-          this.close();
+          window.location.reload();
         },
         error => {
           this.toastr.warning('Comment couldnt be posted', 'Try again later');
@@ -141,9 +155,29 @@ export class MainComponent implements OnInit {
       ]);
     } else {
       this.router.navigate([
-        `profile/${username}`
+        `userProfile/${username}`
       ]);
     }
+  }
+
+  isLogged() {
+    if(localStorage.getItem('token') != null){
+      this.test = localStorage.getItem('user');
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  like(id: string) {
+    const username = localStorage.getItem('user');
+    this.postsService.likePost(username!, id, this.postBody).subscribe((data) => {
+      this.likes = data.likes;
+      console.log(this.likes);
+      this.likesLength = this.likes.length
+      localStorage.setItem('likesCoun', this.likesLength);
+      window.location.reload();
+    })
   }
 
 }

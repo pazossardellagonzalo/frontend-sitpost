@@ -9,17 +9,17 @@
   <!-- Users Tools -->
   <ul class="navbar-nav ms-3" style="margin-right: 5%;">
     <li *ngIf="isLogged() == false" class="nav-item me-3">
-      <button class="btn btn-primary" routerLink="login">SignIn</button>
+      <button class="btn btn-primary" routerLink="login">LogIn</button>
     </li>
     <li *ngIf="isLogged() == false" class="nav-item me-3">
       <button class="btn btn-success" routerLink="signup">SignUp</button>
     </li>
     <li *ngIf="isLogged() == true" class="nav-item me-3">
-      <button class="btn btn-secondary" routerLink="profile">{{ this.user }}</button>
-    </li>
-    <li *ngIf="isLogged() == true" class="nav-item me-3">
       <button class="btn btn-primary" routerLink="post">Post</button>
     </li> 
+    <li *ngIf="isLogged() == true" class="nav-item me-3">
+      <button class="btn btn-secondary" routerLink="profile">{{ this.user }}</button>
+    </li>
     <li *ngIf="isLogged() == true" class="nav-item me-3">
         <button class="btn btn-danger" (click)="logOut()">LogOut</button>
     </li>   

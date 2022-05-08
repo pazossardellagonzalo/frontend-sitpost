@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from 'rxjs';
+import { Posts } from 'src/app/models/posts';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,11 @@ export class PostsService {
   deletePost(_id: string): Observable<any> {
     const url = `${this.url_api}/deletePost/${_id}`;
     return this.http.delete(url);
+  }
+
+  likePost(username: string, _id: string, post: Posts ): Observable<any> {
+    const url = `${this.url_api}/likeCount/${username}/${_id}`;
+    return this.http.put(url, post);
   }
 
 }
