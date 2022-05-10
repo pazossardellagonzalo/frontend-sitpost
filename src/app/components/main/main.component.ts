@@ -60,7 +60,8 @@ export class MainComponent implements OnInit {
   showPosts() {
 
     this.postsService.allPosts().subscribe((data) => {
-      this.posts = data;
+      this.posts = data
+      this.posts.reverse();
       const user = localStorage.getItem('user');
 
       for (let index = 0; index < this.posts.length; index++) {
