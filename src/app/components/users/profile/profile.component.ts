@@ -6,6 +6,8 @@ import { UsersService } from 'src/app/services/users/users.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommentsService } from 'src/app/services/comments/comments.service';
 import { Comments } from 'src/app/models/comments';
+import { Posts } from 'src/app/models/posts';
+import { Users } from 'src/app/models/users';
 
 @Component({
   selector: 'app-profile',
@@ -17,6 +19,7 @@ export class ProfileComponent implements OnInit {
   username: string = '';
   user: string = '';
   email: string = '';
+  password: string = '';
   posts: Array<any> = [];
   test: any = null;
   showComment: boolean = false;
@@ -29,6 +32,15 @@ export class ProfileComponent implements OnInit {
   reply: boolean = false;
   userProfile: any = null;
   commentsShow: boolean = false;
+  postBody: Posts = {
+    user: '',
+    title: '',
+    body: '',
+    likes: 0,
+    image: ''
+  };
+  file: any = null;
+  photoSelected: any = null;
 
   constructor(
     private userService: UsersService,
@@ -58,6 +70,8 @@ export class ProfileComponent implements OnInit {
       this.userService.profile(username!).subscribe((data) => {
         this.user = data.username;
         this.email = data.email;
+        this.password = data.password;
+        this.userProfile = data.userProfile;
         this.postService.userPosts(this.user).subscribe((data) => {
           this.posts = data;
         })
@@ -186,6 +200,19 @@ export class ProfileComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  like(id: string) {
+    const username = localStorage.getItem('user');
+    this.postService.likePost(username!, id, this.postBody).subscribe(
+      data => {
+        window.location.reload();
+      },
+      error => {
+        this.router.navigate([
+          'login'
+        ]);
+      });
   }
 
 }

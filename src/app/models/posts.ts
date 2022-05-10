@@ -3,4 +3,5 @@ export type Posts = {
   title: string | null
   body: string | null
   likes?: 0
+  image: string
 }

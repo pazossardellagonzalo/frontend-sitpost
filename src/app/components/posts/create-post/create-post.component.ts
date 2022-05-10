@@ -15,6 +15,8 @@ export class CreatePostComponent implements OnInit {
   postForm: FormGroup;
   title: string | null;
   likes: number = 0;
+  file: any = null;
+  photoSelected: any = null;
 
   constructor(
     public postService: PostsService,
@@ -35,14 +37,13 @@ export class CreatePostComponent implements OnInit {
 
   post(){
 
-    const post: Posts = {
-      user: localStorage.getItem('user'),
-      title: this.postForm.get('title')?.value,
-      body: this.postForm.get('body')?.value,
-    };
+      const user = localStorage.getItem('user');
+      const title = this.postForm.get('title')?.value;
+      const body = this.postForm.get('body')?.value;
+      const image = this.file;
 
     try {
-      this.postService.Post(post).subscribe(
+      this.postService.Post(user!, title, body, image).subscribe(
         data => {
         this.toastr.success('Succesfully created', 'Post created');
         this.router.navigate([
@@ -57,6 +58,16 @@ export class CreatePostComponent implements OnInit {
         this.toastr.warning('Error ocurred', 'Try again later');
     }
 
+  }
+
+  onPhotoSelected(event:any) {
+    if(event.target.files && event.target.files[0]) {
+      this.file = <File>event.target.files[0];
+      // Image preview
+      const reader = new FileReader();
+      reader.onload = e => this.photoSelected = reader.result;
+      reader.readAsDataURL(this.file);
+    }
   }
 
 }

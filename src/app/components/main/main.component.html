@@ -14,18 +14,14 @@
     </div>
     <div class="card-body">
       <h1>{{ post.title }}</h1>
-      <h4>{{ post.body }}</h4>      
+      <h4>{{ post.body }}</h4> 
+      <div *ngIf="post.image">
+        <img [src]="'http://localhost:3000/' + post.image" class="img-card-top w-100" style="max-height: 800px;"/> 
+      </div>   
     </div>
     <div class="buttons" style="justify-content: flex-start;">
-      <a class="btn btn-primary btn-sm" style="float: left; max-width: 60px; margin-left: 1%; margin-bottom: 2%;" (click)="open(this.value = post._id)" *ngIf="this.reply == false && isLogged() == true"><i class="fa-solid fa-comment"></i></a>
-          <a class="btn btn-light btn-sm" style="float: left; max-width: 100px; margin-left: 3%; margin-bottom: 2%;" *ngIf="this.reply == false" (click)="like(post._id)">
-            <div>
-              <div>
-                <i class="fa-solid fa-heart"></i>{{ post.likes.length }}
-              </div>
-             </div>
-          </a>
-        
+      <a class="btn btn-light btn-sm" style="float: left; max-width: 100px; margin-left: 1%; margin-bottom: 2%;" *ngIf="this.reply == false" (click)="like(post._id)"><i class="fa-solid fa-heart"></i>{{ post.likes.length }}</a>
+      <a class="btn btn-primary btn-sm" style="float: left; max-width: 60px; margin-left: 3%; margin-bottom: 2%;" (click)="open(this.value = post._id)" *ngIf="this.reply == false && isLogged() == true"><i class="fa-solid fa-comment"></i></a>
       <a class="btn btn-warning btn-sm" style="float: left; max-width: 90px; margin-left: 3%; margin-bottom: 2%;" (click)="showComments(this.value = post._id)" *ngIf="this.commentsShow == false"><i class="fa-solid fa-comments"></i></a>
     </div>
 
@@ -53,11 +49,18 @@
     <!-- Show Comments -->
     <div class="card-header" style="max-height: 100%; margin-bottom: 2%;" *ngIf="this.showComment === true && this.value === post._id && this.replyOpen == false">
       <h2>Comments:</h2>
-      <hr>
+      <div *ngIf="this.element.length <= 0">
+        <h3>No comments yet</h3>
+      </div>
       <div class="card-content" *ngFor="let ele of element">
-        <h2 (click)="userProfile(ele.user)">@{{ ele.user }}</h2>
+        <div class="card-header d-flex" style="max-height: 50px; justify-content: space-between;">
+          <h2 (click)="userProfile(ele.user)">@{{ ele.user }}</h2>
+          <h3>{{ ele.datePosted | date:'mediumDate' }}</h3>
           <a class="btn btn-danger btn-sm" style="float: right;" *ngIf="this.test2 === ele.user" (click)="deleteComment(ele._id)"><i class="fa-solid fa-trash"></i></a>
-        <h4>{{ ele.body }}</h4>
+        </div>
+        <div class="card-body">
+          <h4>{{ ele.body }}</h4>
+        </div>
         <hr>
       </div>
       <a class="btn btn-danger btn-sm" style="float: right; max-width: 65px" (click)="closeComments()"><i class="fa-solid fa-ban"></i></a>

@@ -33,12 +33,9 @@ export class MainComponent implements OnInit {
     user: '',
     title: '',
     body: '',
-    likes: 0
+    likes: 0,
+    image: ''
   };
-  likesLength: any = null;
-  actualUser = localStorage.getItem('user');
-  likess: any = null;
-  idk: boolean = false;
 
   constructor(
     private postsService: PostsService,
@@ -173,9 +170,15 @@ export class MainComponent implements OnInit {
   
   like(id: string) {
     const username = localStorage.getItem('user');
-    this.postsService.likePost(username!, id, this.postBody).subscribe((data) => {
-      window.location.reload();
-    });
+    this.postsService.likePost(username!, id, this.postBody).subscribe(
+      data => {
+        window.location.reload();
+      },
+      error => {
+        this.router.navigate([
+          'login'
+        ]);
+      });
   }
 
 }

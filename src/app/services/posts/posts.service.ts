@@ -19,9 +19,14 @@ export class PostsService {
     return this.http.get(url);
   }
 
-  Post(doc: any): Observable<any> {
+  Post(user:string, title: string, body: string, image: string): Observable<any> {
+    const fd = new FormData();
+    fd.append('user', user);
+    fd.append('title', title);
+    fd.append('body', body);
+    fd.append('image', image);
     const url = `${this.url_api}/post`;
-    return this.http.post(url, doc);
+    return this.http.post(url, fd);
   }
 
   userPosts(user: string): Observable<any> {

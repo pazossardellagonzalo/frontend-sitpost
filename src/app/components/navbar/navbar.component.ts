@@ -32,13 +32,12 @@ export class NavbarComponent implements OnInit {
   }
 
   logOut() {
-    localStorage.removeItem('user');
-    localStorage.removeItem('userProfile');
-    localStorage.removeItem('token');
+    localStorage.clear();
     this.toastr.success('Succesfully logged out', 'Disconnected');
     this.router.navigate([
       ''
     ]);
+    window.location.reload();
   }
 
 }
