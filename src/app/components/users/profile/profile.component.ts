@@ -41,6 +41,8 @@ export class ProfileComponent implements OnInit {
   };
   file: any = null;
   photoSelected: any = null;
+  userImage: any = null;
+  openModal = false;
 
   constructor(
     private userService: UsersService,
@@ -71,7 +73,7 @@ export class ProfileComponent implements OnInit {
         this.user = data.username;
         this.email = data.email;
         this.password = data.password;
-        this.userProfile = data.userProfile;
+        this.userImage = data.userImage;
         this.postService.userPosts(this.user).subscribe((data) => {
           this.posts = data;
         })
@@ -111,6 +113,7 @@ export class ProfileComponent implements OnInit {
     this.postService.allPosts().subscribe((data) => {
       this.posts = data;
       const user = localStorage.getItem('user');
+      this.posts.reverse();
 
       for (let index = 0; index < this.posts.length; index++) {
         if(this.posts[index].user === user) {

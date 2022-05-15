@@ -14,6 +14,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   username: string | null;
+  file: any = null;
+  photoSelected: any = null;
 
   constructor(
     public usersService: UsersService,
@@ -35,17 +37,17 @@ export class RegisterComponent implements OnInit {
 
   createUser(){
 
-    const user: Users = {
-      username: this.registerForm.get('username')?.value,
-      email: this.registerForm.get('email')?.value,
-      password: this.registerForm.get('password')?.value
-    };
+    const username = this.registerForm.get('username')?.value;
+    const email = this.registerForm.get('email')?.value;
+    const password = this.registerForm.get('password')?.value;
+    const userImage = this.file;
+
 
     try {
-      this.usersService.singUp(user).subscribe(
+      this.usersService.singUp(username, email, password, userImage).subscribe(
         data => {
           localStorage.setItem('token', data.token);
-          localStorage.setItem('user', user.username || '');
+          localStorage.setItem('user', username || '');
           this.toastr.success('Succesfully registered', 'User created');
           this.router.navigate([
             ''
@@ -59,6 +61,16 @@ export class RegisterComponent implements OnInit {
         this.toastr.error('Error ocurred', 'Try again later');
     }
 
+  }
+
+  onPhotoSelected(event:any) {
+    if(event.target.files && event.target.files[0]) {
+      this.file = <File>event.target.files[0];
+      // Image preview
+      const reader = new FileReader();
+      reader.onload = e => this.photoSelected = reader.result;
+      reader.readAsDataURL(this.file);
+    }
   }
 
 }

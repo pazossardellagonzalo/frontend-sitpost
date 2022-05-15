@@ -12,16 +12,21 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class UsersService {
 
   isAuthenticated = false;
-  url_api = 'http://api.sitpost.org:3000';
+  url_api = 'http://localhost:3000';
 
   constructor(
     private http: HttpClient,
     private jwtHelper: JwtHelperService
     ) { }
 
-  singUp(doc: any): Observable<any> {
+  singUp(username: string, email: string, password: string, userImage: string): Observable<any> {
+    const fd = new FormData();
+    fd.append('username', username);
+    fd.append('email', email);
+    fd.append('password', password);
+    fd.append('userImage', userImage);
     const url = `${this.url_api}/signUp`;
-    return this.http.post(url, doc);
+    return this.http.post(url, fd);
   }
 
   signIn(doc: any): Observable<any> {
@@ -66,6 +71,11 @@ export class UsersService {
   usersProfiles(username: string): Observable<any> {
     const url = `${this.url_api}/usersProfile/${username}`;
     return this.http.get(url);
+  }
+
+  updateUser(username: string, user: Users): Observable<any> {
+    const url = `${this.url_api}/editProfile/${username}`;
+    return this.http.put(url, user);
   }
 
 }

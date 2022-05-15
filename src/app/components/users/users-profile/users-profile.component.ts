@@ -35,6 +35,7 @@ export class UsersProfileComponent implements OnInit {
     likes: 0,
     image: ''
   };
+  userImage: any = null;
 
   constructor(
     private userService: UsersService,
@@ -62,8 +63,10 @@ export class UsersProfileComponent implements OnInit {
     this.user = username;
     this.userService.usersProfiles(username!).subscribe((data) => {
       this.userProfile = data;
+      this.userImage = data.userImage;
       this.postService.userPosts(username!).subscribe((data2) => {
         this.posts = data2;
+        this.posts.reverse();
       })
     })
   }

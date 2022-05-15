@@ -21,6 +21,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CreatePostComponent } from './components/posts/create-post/create-post.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { UsersProfileComponent } from './components/users/users-profile/users-profile.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { ProfileUpdateComponent } from './components/users/profile-update/profile-update.component';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { UsersProfileComponent } from './components/users/users-profile/users-pr
     NavbarComponent,
     CreatePostComponent,
     FilterPipe,
-    UsersProfileComponent
+    UsersProfileComponent,
+    ProfileUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,8 @@ import { UsersProfileComponent } from './components/users/users-profile/users-pr
     MatIconModule,
     MatButtonModule,
     MatTableModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    MatPaginatorModule
   ],
   providers: [
     {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},

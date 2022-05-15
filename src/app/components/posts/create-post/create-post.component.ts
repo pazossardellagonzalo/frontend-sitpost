@@ -37,10 +37,10 @@ export class CreatePostComponent implements OnInit {
 
   post(){
 
-      const user = localStorage.getItem('user');
-      const title = this.postForm.get('title')?.value;
-      const body = this.postForm.get('body')?.value;
-      const image = this.file;
+    const user = localStorage.getItem('user');
+    const title = this.postForm.get('title')?.value;
+    const body = this.postForm.get('body')?.value;
+    const image = this.file;
 
     try {
       this.postService.Post(user!, title, body, image).subscribe(
