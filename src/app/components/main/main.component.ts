@@ -67,14 +67,9 @@ export class MainComponent implements OnInit {
   showPosts() {
 
     this.postsService.allPosts().subscribe((data) => {
-<<<<<<< HEAD
-      this.posts = data
-      this.posts.reverse();
-=======
       this.posts = data;
       this.posts.reverse();
       this.chunk = this.posts.slice(0,5)
->>>>>>> dev
       const user = localStorage.getItem('user');
       
       for (let index = 0; index < this.posts.length; index++) {
