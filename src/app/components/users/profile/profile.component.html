@@ -36,13 +36,8 @@
           <h1>{{ post.title }}</h1>
           <h4>{{ post.body }}</h4>    
           <div *ngIf="post.image">
-<<<<<<< HEAD
             <img [src]="'http://api.sitpost.org:3000/' + post.image" class="img-card-top w-100" style="max-height: 800px;"/> 
           </div> 
-=======
-            <img [src]="'http://localhost:3000/' + post.image" class="img-card-top w-100" style="max-height: 800px;"/> 
-          </div>     
->>>>>>> dev
         </div>
         <div class="buttons" style="justify-content: flex-start;">
           <a class="btn btn-light btn-sm" style="float: left; max-width: 100px; margin-left: 1%; margin-bottom: 2%;" *ngIf="this.reply == false" (click)="like(post._id)"><i class="fa-solid fa-heart"></i>{{ post.likes.length }}</a>
