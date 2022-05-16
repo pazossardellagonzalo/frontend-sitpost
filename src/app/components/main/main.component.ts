@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { faThList } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { Comments } from 'src/app/models/comments';
 import { Posts } from 'src/app/models/posts';
 import { CommentsService } from 'src/app/services/comments/comments.service';
 import { PostsService } from 'src/app/services/posts/posts.service';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-main',
@@ -36,6 +36,13 @@ export class MainComponent implements OnInit {
     likes: 0,
     image: ''
   };
+  commentBody: Comments = {
+    user: '',
+    body: '',
+    postID: '',
+    commentLikes: 0
+  };
+  chunk: Array<any> = [];
 
   constructor(
     private postsService: PostsService,
@@ -60,10 +67,16 @@ export class MainComponent implements OnInit {
   showPosts() {
 
     this.postsService.allPosts().subscribe((data) => {
+<<<<<<< HEAD
       this.posts = data
       this.posts.reverse();
+=======
+      this.posts = data;
+      this.posts.reverse();
+      this.chunk = this.posts.slice(0,5)
+>>>>>>> dev
       const user = localStorage.getItem('user');
-
+      
       for (let index = 0; index < this.posts.length; index++) {
         if(this.posts[index].user === user) {
           this.test = this.posts[index].user;
@@ -72,6 +85,15 @@ export class MainComponent implements OnInit {
 
     })
 
+  }
+
+  OnPageChange(event: PageEvent) {
+    const startIndex = event.pageIndex * event.pageSize;
+    let endIndex = startIndex + event.pageSize;
+    if(endIndex > this.posts.length) {
+      endIndex = this.posts.length;
+    }
+    this.chunk = this.posts.slice(startIndex, endIndex);  
   }
 
   showComments(value: any) {
@@ -172,6 +194,19 @@ export class MainComponent implements OnInit {
   like(id: string) {
     const username = localStorage.getItem('user');
     this.postsService.likePost(username!, id, this.postBody).subscribe(
+      data => {
+        window.location.reload();
+      },
+      error => {
+        this.router.navigate([
+          'login'
+        ]);
+      });
+  }
+
+  likeComment(id: string) {
+    const username = localStorage.getItem('user');
+    this.commentsService.likeComment(username!, id, this.commentBody).subscribe(
       data => {
         window.location.reload();
       },

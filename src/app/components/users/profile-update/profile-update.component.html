@@ -1,0 +1,42 @@
+<div class="mask d-flex align-items-center h-100 gradient-custom-3">
+  <div class="container h-100" style="margin-top: 5%; margin-bottom: 5%;">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+        <div class="card" style="border-radius: 15px;">
+          <div class="card-body p-5">
+            <h2 class="text-uppercase text-center mb-5">Edit Profile</h2>
+            <form [formGroup]="editProfileForm">
+              <div class="form-outline form-group mb-4">
+                <input type="text" class="form-control form-control-lg" [disabled]="true" value="{{this.user}}"/>
+              </div>       
+              <div class="form-outline form-group mb-4">
+                <input type="text" class="form-control form-control-lg" [disabled]="true" value="{{this.info.email}}"/>
+              </div>  
+              <div class="form-outline form-group mb-4">
+                <input type="password" formControlName="password" class="form-control form-control-lg" placeholder="New password" />
+                <div class="text-danger"
+                  *ngIf="editProfileForm.get('password')?.hasError('minlength')">
+                    <span>Password must contain <strong>5 characters</strong></span>
+                </div>
+                <div class="text-danger"
+                  *ngIf="editProfileForm.get('password')?.hasError('maxlength')">
+                    <span>Password cant have more than <strong>20 characters</strong></span>
+                </div>
+              </div>
+              <div class="form-outline form-group mb-4">
+                <input type="text" formControlName="bio" class="form-control form-control-lg" placeholder="'Such a nice day'" />
+              </div>
+              <div class="form-outline form-group mb-4">
+                <h2>Select a new profile picture</h2>
+                <input type="file" class="d-none" (change)="onPhotoSelected($event)" #photoInput>
+                <img [src]="photoSelected || 'assets/userProfile.jpg'" style="height: 500px; width: 600px; margin-bottom: 1%;" class="img-fluid" (click)="photoInput.click()"/>
+              </div>  
+              <button [disabled]="editProfileForm.invalid" type="submit" class="btn btn-info btn-block btn-lg gradient-custom-4 text-body" (click)="updateProfile()">Save</button>
+              <button type="submit" class="btn btn-info btn-block btn-lg gradient-custom-4 text-body" routerLink="">Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

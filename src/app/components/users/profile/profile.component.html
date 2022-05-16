@@ -3,9 +3,14 @@
   <div class="card" style="max-width: 100%;">
     <div class="card-title">
       <div class="justify-content-start">
-        <div class="image-container">
-            <img src="" style="width: 150px; height: 150px; margin-left: 2%; margin-top: 1%;" class="img-thumbnail" />
+        <div class="image-container" *ngIf="userImage != null">
+            <img [src]="'http://localhost:3000/' + userImage" class="img-card-top" style="height: 150px; width: 150px; margin-left: 2%; margin-top: 1%; border: 5px solid;" /> 
             <a class="btn btn-danger" style="float: right; margin-top: 1%; margin-right: 2%;" (click)="deleteUser()"><i class="fa-solid fa-user-large-slash"></i></a>
+            <a class="btn btn-primary" style="float: right; margin-top: 1%; margin-right: 2%;" routerLink="editProfile"><i class="fa-solid fa-pen-to-square"></i></a>
+        </div>
+        <div class="image-container" *ngIf="userImage == null">
+          <img [src]="'assets/user.jpg'" class="img-card-top" style="height: 150px; width: 150px; margin-left: 2%; margin-top: 1%; border: 5px solid;" /> 
+          <a class="btn btn-danger" style="float: right; margin-top: 1%; margin-right: 2%;" (click)="deleteUser()"><i class="fa-solid fa-user-large-slash"></i></a>
         </div>
         <div class="userData">
             <h1 class="d-block" style="font-size: 1.5rem; font-weight: bold; margin-left: 2%; margin-top: 1%;">@{{ this.user }}</h1>
@@ -31,8 +36,13 @@
           <h1>{{ post.title }}</h1>
           <h4>{{ post.body }}</h4>    
           <div *ngIf="post.image">
+<<<<<<< HEAD
             <img [src]="'http://api.sitpost.org:3000/' + post.image" class="img-card-top w-100" style="max-height: 800px;"/> 
           </div> 
+=======
+            <img [src]="'http://localhost:3000/' + post.image" class="img-card-top w-100" style="max-height: 800px;"/> 
+          </div>     
+>>>>>>> dev
         </div>
         <div class="buttons" style="justify-content: flex-start;">
           <a class="btn btn-light btn-sm" style="float: left; max-width: 100px; margin-left: 1%; margin-bottom: 2%;" *ngIf="this.reply == false" (click)="like(post._id)"><i class="fa-solid fa-heart"></i>{{ post.likes.length }}</a>
