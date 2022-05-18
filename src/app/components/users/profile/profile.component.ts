@@ -43,6 +43,9 @@ export class ProfileComponent implements OnInit {
   photoSelected: any = null;
   userImage: any = null;
   openModal = false;
+  bio: any = null;
+  allPosts: any = null;
+  test3: any = null;
 
   constructor(
     private userService: UsersService,
@@ -74,8 +77,10 @@ export class ProfileComponent implements OnInit {
         this.email = data.email;
         this.password = data.password;
         this.userImage = data.userImage;
+        this.bio = data.bio;
         this.postService.userPosts(this.user).subscribe((data) => {
           this.posts = data;
+          this.posts.reverse();
         })
       })
     } else {
@@ -91,7 +96,6 @@ export class ProfileComponent implements OnInit {
       const user = localStorage.getItem('user');
       if(confirm('Are you sure that you want to delete your user, all data will be lost')) {
         this.userService.deleteUser(user!).subscribe((data) => {
-          console.log(data);
           if(data != null) {
             this.toastr.success('Correctly deleted user', 'User deleted');
             this.router.navigate([ '' ]);
@@ -111,17 +115,16 @@ export class ProfileComponent implements OnInit {
   showPosts() {
 
     this.postService.allPosts().subscribe((data) => {
-      this.posts = data;
-      const user = localStorage.getItem('user');
-      this.posts.reverse();
-
-      for (let index = 0; index < this.posts.length; index++) {
-        if(this.posts[index].user === user) {
-          this.test = this.posts[index].user;
-        }
-      }
+      this.allPosts = data;
+      this.allPosts.reverse();
     })
 
+  }
+
+  tabSelected(event: any) {
+    if(event.index === 1) {
+      this.showPosts();
+    }
   }
 
   deletePost(id: string) {
@@ -216,6 +219,20 @@ export class ProfileComponent implements OnInit {
           'login'
         ]);
       });
+  }
+
+  userProfile2(username: string) {
+    localStorage.setItem('userProfile', username);
+    const user = localStorage.getItem('user');
+    if(username === user) {
+      this.router.navigate([
+        'profile'
+      ]);
+    } else {
+      this.router.navigate([
+        `userProfile/${username}`
+      ]);
+    }
   }
 
 }

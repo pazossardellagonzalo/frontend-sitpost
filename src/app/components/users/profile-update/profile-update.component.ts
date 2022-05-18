@@ -25,8 +25,7 @@ export class ProfileUpdateComponent implements OnInit {
     private fb: FormBuilder,
   ) {
     this.editProfileForm = this.fb.group({
-      bio: ['', [Validators.minLength(1), Validators.maxLength(100)]],
-      password: ['', [Validators.minLength(5), Validators.maxLength(20), Validators.pattern('[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]')]]
+      bio: ['', [Validators.minLength(1), Validators.maxLength(100)]]
     });
     this.bio = this.aRouter.snapshot.paramMap.get('bio');
   }
@@ -40,7 +39,6 @@ export class ProfileUpdateComponent implements OnInit {
     this.userService.profile(user!).subscribe((data) => {
       this.info = data;
       this.editProfileForm.setValue({
-        password: '',
         bio: data.bio
       })
     })
@@ -58,22 +56,17 @@ export class ProfileUpdateComponent implements OnInit {
 
   updateProfile() {
     const username = this.info.username;
-    const email = this.info.email;
-    const password = this.editProfileForm.get('password')?.value;
     const bio = this.editProfileForm.get('bio')?.value;
     const userImage = this.file;
 
-    const user = {
-      username,
-      email,
-      password,
-      bio,
-      userImage
-    }
-
-    this.userService.updateUser(username!, user).subscribe((data) => {
-      console.log(data);
+    this.userService.updateUser(username!, bio, userImage).subscribe((data) => {
+      this.router.navigate([
+        'profile'
+      ]);
     })
+
+
+
   }
 
 }

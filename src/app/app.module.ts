@@ -11,6 +11,7 @@ import { MatTableModule } from '@angular/material/table';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AppRoutingModule } from './app-routing.module';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './components/users/register/register.component';
@@ -52,7 +53,8 @@ import { ProfileUpdateComponent } from './components/users/profile-update/profil
     MatButtonModule,
     MatTableModule,
     Ng2SearchPipeModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTabsModule
   ],
   providers: [
     {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},

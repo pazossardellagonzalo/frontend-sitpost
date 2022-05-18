@@ -8,7 +8,7 @@ import { Comments } from 'src/app/models/comments';
 })
 export class CommentsService {
 
-  url_api = 'http://api.sitpost.org:3000';
+  url_api = 'http://localhost:3000';
 
   constructor(
     private http: HttpClient

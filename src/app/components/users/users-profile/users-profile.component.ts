@@ -36,6 +36,7 @@ export class UsersProfileComponent implements OnInit {
     image: ''
   };
   userImage: any = null;
+  allPosts: any = null
 
   constructor(
     private userService: UsersService,
@@ -152,6 +153,35 @@ export class UsersProfileComponent implements OnInit {
           'login'
         ]);
       });
+  }
+
+  showPosts() {
+
+    this.postService.allPosts().subscribe((data) => {
+      this.allPosts = data;
+      this.allPosts.reverse();
+    })
+
+  }
+
+  tabSelected(event: any) {
+    if(event.index === 1) {
+      this.showPosts();
+    }
+  }
+  
+  userProfile2(username: string) {
+    localStorage.setItem('userProfile', username);
+    const user = localStorage.getItem('user');
+    if(username === user) {
+      this.router.navigate([
+        'profile'
+      ]);
+    } else {
+      this.router.navigate([
+        `userProfile/${username}`
+      ]);
+    }
   }
 
 }
