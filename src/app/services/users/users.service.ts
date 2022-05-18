@@ -12,7 +12,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class UsersService {
 
   isAuthenticated = false;
-  url_api = 'http://localhost:3000';
+  url_api = 'http://api.sitPost.org:3000';
 
   constructor(
     private http: HttpClient,

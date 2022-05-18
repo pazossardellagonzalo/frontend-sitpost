@@ -56,7 +56,7 @@
                 </div>
               </div>
               <input type="file" class="d-none" formControlName="userImage" (change)="onPhotoSelected($event)" #photoInput>
-              <img [src]="photoSelected || 'assets/userProfile.jpg'" style="height: 500px; width: 600px; margin-bottom: 1%;" class="img-fluid" (click)="photoInput.click()"/>
+              <img [src]="photoSelected || 'userProfile.jpg'" style="height: 500px; width: 600px; margin-bottom: 1%;" class="img-fluid" (click)="photoInput.click()"/>
               <div class="d-flex justify-content-center">
                 <button (click)="createUser()" [disabled]="registerForm.invalid" type="submit" class="btn btn-info btn-block btn-lg gradient-custom-4 text-body">SignUp</button>
               </div>

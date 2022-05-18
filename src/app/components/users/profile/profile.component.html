@@ -4,7 +4,7 @@
     <div class="card-title">
       <div class="justify-content-start">
         <div class="image-container" *ngIf="userImage != null">
-            <img [src]="'http://localhost:3000/' + userImage" class="img-card-top" style="height: 150px; width: 150px; margin-left: 2%; margin-top: 1%; border: 5px solid;" /> 
+            <img [src]="'http://api.sitPost.org:3000/' + userImage" class="img-card-top" style="height: 150px; width: 150px; margin-left: 2%; margin-top: 1%; border: 5px solid;" /> 
             <a class="btn btn-danger" style="float: right; margin-top: 1%; margin-right: 2%;" (click)="deleteUser()"><i class="fa-solid fa-user-large-slash"></i></a>
             <a class="btn btn-primary" style="float: right; margin-top: 1%; margin-right: 2%;" routerLink="editProfile"><i class="fa-solid fa-pen-to-square"></i></a>
         </div>
@@ -45,7 +45,7 @@
                     <h1>{{ post.title }}</h1>
                     <h4>{{ post.body }}</h4>    
                     <div *ngIf="post.image">
-                      <img [src]="'http://localhost:3000/' + post.image" class="img-card-top w-100" style="max-height: 800px;"/> 
+                      <img [src]="'http://api.sitPost.org:3000/' + post.image" class="img-card-top w-100" style="max-height: 800px;"/> 
                     </div> 
                   </div>
                   <div class="buttons" style="justify-content: flex-start;">
@@ -119,7 +119,7 @@
                         <h1>{{ post.title }}</h1>
                         <h4>{{ post.body }}</h4>    
                         <div *ngIf="post.image">
-                          <img [src]="'http://localhost:3000/' + post.image" class="img-card-top w-100" style="max-height: 800px;"/> 
+                          <img [src]="'http://api.sitPost.org:3000/' + post.image" class="img-card-top w-100" style="max-height: 800px;"/> 
                         </div> 
                       </div>
                       <div class="buttons" style="justify-content: flex-start;">
