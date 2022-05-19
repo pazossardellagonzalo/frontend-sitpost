@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
   username: string | null;
   file: any = null;
   photoSelected: any = null;
+  hide = true;
 
   constructor(
     public usersService: UsersService,

@@ -12,7 +12,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class UsersService {
 
   isAuthenticated = false;
-  url_api = 'http://api.sitPost.org:3000';
+  url_api = 'http://api.sitpost.org:3000';
 
   constructor(
     private http: HttpClient,
@@ -33,6 +33,13 @@ export class UsersService {
     const fd = new FormData();
     fd.append('userImage', userImage);
     fd.append('bio', bio);
+    const url = `${this.url_api}/editProfile/${username}`;
+    return this.http.put(url, fd);
+  }
+
+  updatePassword(username: string, password: string): Observable<any> {
+    const fd = new FormData();
+    fd.append('password', password);
     const url = `${this.url_api}/editProfile/${username}`;
     return this.http.put(url, fd);
   }

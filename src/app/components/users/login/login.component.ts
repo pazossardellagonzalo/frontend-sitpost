@@ -14,7 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   username: string | null;
-
+  hide = true;
 
   constructor(
     public usersService: UsersService,
