@@ -4,13 +4,19 @@
     <div class="card-title">
       <div class="justify-content-start">
         <div class="image-container" *ngIf="userImage != null">
-          <img [src]="'http://api.sitpost.org:3000/' + userImage" class="img-card-top" style="height: 150px; width: 150px; margin-left: 2%; margin-top: 1%; border: 5px solid;" /> 
+          <img [src]="'http://localhost:3000/' + userImage" class="img-card-top" style="height: 150px; width: 150px; margin-left: 2%; margin-top: 1%; border: 5px solid;" /> 
         </div>
         <div class="image-container" *ngIf="userImage == null">
           <img [src]="'assets/user.jpg'" class="img-card-top w-100" style="height: 150px; width: 150px; margin-left: 2%; margin-top: 1%; border: 5px solid;" /> 
         </div>
         <div class="userData">
             <h1 class="d-block" style="font-size: 1.5rem; font-weight: bold; margin-left: 2%; margin-top: 1%;">@{{ this.user }}</h1>
+            <div *ngIf="this.bio == ''">
+              <h3 class="d-block" style="font-size: 1rem; margin-left: 2%; margin-top: 1%;">No bio yet...</h3>
+            </div>
+            <div *ngIf="this.bio != ''">
+              <h3 class="d-block" style="font-size: 1rem; margin-left: 2%; margin-top: 1%;">{{ this.bio }}</h3>
+            </div>
         </div>
         <div class="Posts" style="margin-top: 2%; margin-bottom: 1%; margin-left: 2%;">
           <mat-tab-group (selectedTabChange)="tabSelected($event)">
@@ -33,7 +39,7 @@
                     <h1>{{ post.title }}</h1>
                     <h4>{{ post.body }}</h4>    
                     <div *ngIf="post.image">
-                      <img [src]="'http://api.sitpost.org:3000/' + post.image" class="img-card-top w-100" style="max-height: 800px;"/> 
+                      <img [src]="'http://localhost:3000/' + post.image" class="img-card-top w-100" style="max-height: 800px;"/> 
                     </div> 
                   </div>
                   <div class="buttons" style="justify-content: flex-start;">
@@ -106,7 +112,7 @@
                         <h1>{{ post.title }}</h1>
                         <h4>{{ post.body }}</h4>    
                         <div *ngIf="post.image">
-                          <img [src]="'http://api.sitpost.org:3000/' + post.image" class="img-card-top w-100" style="max-height: 800px;"/> 
+                          <img [src]="'http://localhost:3000/' + post.image" class="img-card-top w-100" style="max-height: 800px;"/> 
                         </div> 
                       </div>
                       <div class="buttons" style="justify-content: flex-start;">
