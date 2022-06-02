@@ -1,4 +1,4 @@
-export type Comments = {
+export interface Comments {
   user: string | null
   body: string | null
   postID: string | null

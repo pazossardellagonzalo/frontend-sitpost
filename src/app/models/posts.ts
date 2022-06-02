@@ -1,4 +1,4 @@
-export type Posts = {
+export interface Posts {
   user: string | null
   title: string | null
   body: string | null
