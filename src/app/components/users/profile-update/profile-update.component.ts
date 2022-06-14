@@ -66,13 +66,21 @@ export class ProfileUpdateComponent implements OnInit {
     const userImage = this.file;
     localStorage.setItem('password', password);
 
-    this.userService.updateUser(username!, bio, userImage, password).subscribe((data) => {
-      console.log(data);
-      this.router.navigate([
-        'profile'
-      ]);
-    })
-
+    try {
+      this.userService.updateUser(username!, bio, userImage, password).subscribe(
+        data => {
+          this.toastr.success('Succesfully updated', 'User updated');
+        this.router.navigate([
+          'profile'
+        ]);
+        },
+        error => {
+          this.toastr.warning('User couldnt be updated', 'Try again');
+        }
+      );
+    } catch (error) {
+        this.toastr.error('Error ocurred', 'Try again later');
+    }
 
 
   }
