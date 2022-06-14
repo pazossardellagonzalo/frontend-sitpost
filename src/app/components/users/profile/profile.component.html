@@ -91,6 +91,7 @@
                       </div>
                       <div class="card-body">
                         <h4>{{ ele.body }}</h4>
+                        <a class="btn btn-dark btn-sm" style="float: left; max-width: 100px;" *ngIf="this.reply == false" (click)="likeComment(ele._id)"><i class="fa-solid fa-heart"></i>{{ ele.commentLikes.length }}</a>
                       </div>
                       <hr>
                     </div>

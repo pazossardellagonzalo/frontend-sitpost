@@ -46,6 +46,12 @@ export class ProfileComponent implements OnInit {
   bio: any = null;
   allPosts: any = null;
   test3: any = null;
+  commentBody: Comments = {
+    user: '',
+    body: '',
+    postID: '',
+    commentLikes: 0
+  };
 
   constructor(
     private userService: UsersService,
@@ -215,6 +221,20 @@ export class ProfileComponent implements OnInit {
         window.location.reload();
       },
       error => {
+        this.router.navigate([
+          'login'
+        ]);
+      });
+  }
+
+  likeComment(id: string) {
+    const username = localStorage.getItem('user');
+    this.commentsService.likeComment(username!, id, this.commentBody).subscribe(
+      data => {
+        window.location.reload();
+      },
+      error => {
+        console.log(error);
         this.router.navigate([
           'login'
         ]);
