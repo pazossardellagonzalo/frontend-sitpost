@@ -11,10 +11,9 @@
             <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a ngbDropdownItem class="btn btn-danger" style="float: right; margin-top: 1%; margin-right: 2%;" (click)="deleteUser()">Delete User</a>
               <a ngbDropdownItem class="btn btn-primary" style="float: right; margin-top: 1%; margin-right: 2%;" routerLink="editProfile">Edit Profile</a>
-              <a ngbDropdownItem class="btn btn-primary" style="float: right; margin-top: 1%; margin-right: 2%;" routerLink="passwordProfile">Change Password</a>
             </div>
           </div>
-            <img [src]="'http://api.sitpost.org:3000/' + userImage" class="img-card-top" style="height: 150px; width: 150px; margin-left: 2%; margin-top: 1%; border: 5px solid;" /> 
+            <img [src]="'http://localhost:3000/' + userImage" class="img-card-top" style="height: 150px; width: 150px; margin-left: 2%; margin-top: 1%; border: 5px solid;" /> 
         </div>
         <div class="userData">
             <h1 class="d-block" style="font-size: 1.5rem; font-weight: bold; margin-left: 2%; margin-top: 1%;">@{{ this.user }}</h1>
@@ -48,7 +47,7 @@
                     <h1>{{ post.title }}</h1>
                     <h4>{{ post.body }}</h4>    
                     <div *ngIf="post.image">
-                      <img [src]="'http://api.sitpost.org:3000/' + post.image" class="img-card-top w-100" style="max-height: 800px;"/> 
+                      <img [src]="'http://localhost:3000/' + post.image" class="img-card-top w-100" style="max-height: 800px;"/> 
                     </div> 
                   </div>
                   <div class="buttons" style="justify-content: flex-start;">
@@ -116,13 +115,13 @@
                       <div class="card-header d-flex" style="max-height: 50px; justify-content: space-between;">
                         <h2 (click)="userProfile2(post.user)">@{{ post.user }}</h2>
                         <h3>{{ post.datePosted | date:'mediumDate' }}</h3>
-                        <a class="btn btn-danger btn-sm" style="max-width: 60px; float: right;" (click)="deletePost(post._id)"><i class="fa-solid fa-trash"></i></a>
+                        <a class="btn btn-danger btn-sm" style="max-width: 60px; float: right;" *ngIf="this.test === post.user" (click)="deletePost(post._id)"><i class="fa-solid fa-trash"></i></a>
                       </div>
                       <div class="card-body">
                         <h1>{{ post.title }}</h1>
                         <h4>{{ post.body }}</h4>    
                         <div *ngIf="post.image">
-                          <img [src]="'http://api.sitpost.org:3000/' + post.image" class="img-card-top w-100" style="max-height: 800px;"/> 
+                          <img [src]="'http://localhost:3000/' + post.image" class="img-card-top w-100" style="max-height: 800px;"/> 
                         </div> 
                       </div>
                       <div class="buttons" style="justify-content: flex-start;">

@@ -24,7 +24,6 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { UsersProfileComponent } from './components/users/users-profile/users-profile.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ProfileUpdateComponent } from './components/users/profile-update/profile-update.component';
-import { UsersPasswordComponent } from './components/users/users-password/users-password.component';
 import { MatInputModule } from '@angular/material/input';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
@@ -40,8 +39,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
     CreatePostComponent,
     FilterPipe,
     UsersProfileComponent,
-    ProfileUpdateComponent,
-    UsersPasswordComponent
+    ProfileUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +54,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
     MatIconModule,
     MatButtonModule,
     MatTableModule,
-    Ng2SearchPipeModule,
     MatPaginatorModule,
     MatTabsModule,
     MatInputModule,

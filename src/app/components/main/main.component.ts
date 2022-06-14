@@ -206,6 +206,7 @@ export class MainComponent implements OnInit {
         window.location.reload();
       },
       error => {
+        console.log(error);
         this.router.navigate([
           'login'
         ]);

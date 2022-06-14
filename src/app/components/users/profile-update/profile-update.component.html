@@ -10,6 +10,25 @@
                 <h2>Type new bio</h2>
                 <input type="text" formControlName="bio" class="form-control form-control-lg" placeholder="'Such a nice day'" />
               </div>
+              <div class="form-outline form-group mb-4">
+                <h2>Type new password</h2>
+                <input type="password" formControlName="password" class="form-control form-control-lg" placeholder="Password..." [type]="hide ? 'password' : 'text'"/>
+                <i class="material-icons" matSuffix (click)="hide = !hide">
+                  {{hide ? 'visibility':'visibility_off'}}
+                </i>
+                <div class="text-danger"
+                  *ngIf="editProfileForm.get('password')?.hasError('minlength')">
+                    <span>Password must contain <strong>5 characters</strong></span>
+                </div>
+                <div class="text-danger"
+                  *ngIf="editProfileForm.get('password')?.hasError('maxlength')">
+                    <span>Password cant have more than <strong>20 characters</strong></span>
+                </div>
+                <div class="text-danger"
+                  *ngIf="editProfileForm.get('password')?.hasError('pattern')">
+                    <span>Enter valid <strong>password</strong></span>
+                </div>
+              </div>
                <div class="form-outline form-group mb-4">
                 <h2>Select a new profile picture</h2>
                 <input type="file" class="d-none" (change)="onPhotoSelected($event)" #photoInput>

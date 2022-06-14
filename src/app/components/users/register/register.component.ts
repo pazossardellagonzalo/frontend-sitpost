@@ -43,6 +43,7 @@ export class RegisterComponent implements OnInit {
     const email = this.registerForm.get('email')?.value;
     const password = this.registerForm.get('password')?.value;
     const userImage = this.file;
+    localStorage.setItem('password', password);
 
 
     try {
